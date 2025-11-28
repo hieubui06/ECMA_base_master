@@ -1,35 +1,32 @@
+import React from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import List from "./pages/List";
+import Edit from "./pages/Edit";
+import Add from "./pages/Add";
+
 function App() {
 
   return (
     <>
       <nav className="bg-blue-600 text-white shadow">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <a href="#" className="text-xl font-semibold">
+          <Link to="/" className="text-xl font-semibold">
             <strong>BUI VAN HIEU</strong>
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="hover:text-gray-200">
-              Trang chủ
-            </a>
-            <a href="/list" className="hover:text-gray-200">
-              Danh sách
-            </a>
-            <a href="#" className="hover:text-gray-200">
-              Thêm mới
-            </a>
+            <Link to="/" className="hover:text-gray-200">Trang chủ</Link>
+
+            <Link to="/list" className="hover:text-gray-200">Danh sách</Link>
+
+            <Link to="/add" className="hover:text - gray - 200">Thêm mới</Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-6">
-            <a href="#" className="hover:text-gray-200">
-              Đăng nhập
-            </a>
-            <a href="#" className="hover:text-gray-200">
-              Đăng ký
-            </a>
+            <Link to="/login" className="hover:text-gray-200">Đăng nhập</Link>
+
+            <Link to="/register" className="hover:text-gray-200">Đăng ký</Link>
           </div>
         </div>
       </nav>
@@ -40,6 +37,8 @@ function App() {
         <p className="text-lg text-gray-600">Ứng dụng quản lý dữ liệu</p>
         <Routes>
           <Route path="/List" element={<List />} />
+          <Route path="/edit/:id" element={<Edit />} />
+          <Route path="/add" element={<Add />} />
         </Routes>
       </div>
 
@@ -49,3 +48,4 @@ function App() {
 }
 
 export default App;
+

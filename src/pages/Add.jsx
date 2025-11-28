@@ -1,99 +1,131 @@
-function Add() {
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Thêm mới</h1>
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
-      <form className="space-y-6">
-        {/* Text input */}
-        <div>
-          <label htmlFor="text" className="block font-medium mb-1">
-            Text
-          </label>
+function Add() {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState("");
+  const [destination, setDestination] = useState("");
+  const [duration, setDuration] = useState("");
+  const [available, setAvailable] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleAdd = async (e) => {
+    e.preventDefault();
+
+    // kiểm tra tất cả trường bắt buộc
+    if (!name || !price || !image || !destination || !duration || !available) {
+      toast.error("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
+
+    const newTour = {
+      name,
+      price: Number(price),
+      image,
+      destination,
+      duration,
+      available: Number(available),
+    };
+
+    try {
+      await fetch("http://localhost:3001/tours", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newTour),
+      });
+
+      toast.success("Thêm thành công!");
+      navigate("/list");
+    } catch (error) {
+      toast.error("Lỗi kết nối server");
+    }
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto shadow-md bg-white p-6 rounded-lg mt-10">
+      <h1 className="text-2xl font-bold mb-4 text-center">Thêm Tour Mới</h1>
+
+      <form onSubmit={handleAdd} className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-xl shadow-lg max-w-3xl mx-auto">
+        {/* Tên tour */}
+        <div className="flex flex-col">
+          <label className="font-medium mb-1">Tên tour</label>
           <input
-            type="text"
-            id="text"
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Nhập tên tour..."
           />
         </div>
 
-        {/* Checkbox list */}
-        <div>
-          <label className="block font-medium mb-1">Radio</label>
-
-          <div className="flex items-center space-x-2 mb-2">
-            <input
-              type="checkbox"
-              id="flexCheck1"
-              className="h-4 w-4 text-blue-600 rounded border-gray-300"
-            />
-            <label htmlFor="flexCheck1" className="text-gray-700">
-              checkbox 1
-            </label>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="flexCheck2"
-              className="h-4 w-4 text-blue-600 rounded border-gray-300"
-            />
-            <label htmlFor="flexCheck2" className="text-gray-700">
-              checkbox 2
-            </label>
-          </div>
+        {/* Giá */}
+        <div className="flex flex-col">
+          <label className="font-medium mb-1">Giá</label>
+          <input
+            type="number"
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="Nhập giá..."
+          />
         </div>
 
-        {/* Radio list */}
-        <div>
-          <label className="block font-medium mb-1">Checkbox</label>
-
-          <div className="flex items-center space-x-2 mb-2">
-            <input
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadio1"
-              className="h-4 w-4 text-blue-600"
-            />
-            <label htmlFor="flexRadio1" className="text-gray-700">
-              Checkbox 1
-            </label>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <input
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadio2"
-              className="h-4 w-4 text-blue-600"
-            />
-            <label htmlFor="flexRadio2" className="text-gray-700">
-              Checkbox 2
-            </label>
-          </div>
+        {/* Hình ảnh */}
+        <div className="flex flex-col">
+          <label className="font-medium mb-1">Hình ảnh</label>
+          <input
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            placeholder="URL hình ảnh"
+          />
         </div>
 
-        {/* Select */}
-        <div>
-          <label htmlFor="selectOption" className="block font-medium mb-1">
-            Select - option
-          </label>
-          <select
-            id="selectOption"
-            className="w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        {/* Điểm đến */}
+        <div className="flex flex-col">
+          <label className="font-medium mb-1">Điểm đến</label>
+          <input
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            placeholder="Nhập điểm đến..."
+          />
+        </div>
+
+        {/* Thời gian */}
+        <div className="flex flex-col">
+          <label className="font-medium mb-1">Thời gian</label>
+          <input
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+            placeholder="Nhập thời gian (ví dụ: 3 ngày 2 đêm)"
+          />
+        </div>
+
+        {/* Số lượng */}
+        <div className="flex flex-col">
+          <label className="font-medium mb-1">Số lượng</label>
+          <input
+            type="number"
+            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={available}
+            onChange={(e) => setAvailable(e.target.value)}
+            placeholder="Nhập số lượng khách tối đa"
+          />
+        </div>
+
+        {/* Button submit, chiếm full width 2 cột */}
+        <div className="md:col-span-2">
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300"
           >
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+            Thêm mới
+          </button>
         </div>
-
-        {/* Submit button */}
-        <button
-          type="submit"
-          className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-        >
-          Submit
-        </button>
       </form>
     </div>
   );

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";  // ⬅️ BẠN QUÊN DÒNG NÀY
 
 function List() {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();  // ⬅️ BẠN CŨNG QUÊN TẠO navigate
 
   const API_URL = "http://localhost:3001/tours";
 
@@ -18,6 +21,27 @@ function List() {
       })
       .finally(() => setLoading(false));
   }, []);
+
+  const handleAdd = () => {
+    navigate("/add");
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/edit/${id}`);
+  };
+
+  const handleDelete = async (id) => {
+    if (!confirm("Bạn có chắc muốn xóa tour này?")) return;
+
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      setTours(tours.filter((tour) => tour.id !== id));
+      alert("Xóa thành công");
+    } catch (err) {
+      alert("Lỗi xóa tour!");
+      console.log(err);
+    }
+  };
 
   if (loading) return <p className="mt-6 text-center">Đang tải dữ liệu...</p>;
   if (error) return <p className="mt-6 text-center text-red-500">{error}</p>;
@@ -37,7 +61,8 @@ function List() {
               <th className="px-4 py-2 border border-gray-300 text-left">Điểm đến</th>
               <th className="px-4 py-2 border border-gray-300 text-left">Thời gian</th>
               <th className="px-4 py-2 border border-gray-300 text-left">Giá</th>
-              <th className="px-4 py-2 border border-gray-300 text-left">Số lượng còn</th>
+              <th className="px-4 py-2 border border-gray-300 text-left">Số lượng</th>
+              <th className="px-4 py-2 border border-gray-300 text-left">Hành Động</th>
             </tr>
           </thead>
 
@@ -59,13 +84,30 @@ function List() {
                   {tour.price.toLocaleString()} VNĐ
                 </td>
                 <td className="px-4 py-2 border border-gray-300">{tour.available}</td>
+                <td className="px-6 py-3 flex justify-center gap-3">
+                  <button
+                    onClick={() => handleEdit(tour.id)}
+                    className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg shadow transition"
+                  >
+                    Sửa
+                  </button>
+                  <button
+                    onClick={() => handleDelete(tour.id)}
+                    className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow transition"
+                  >
+                    Xóa
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+
       </div>
     </div>
   );
 }
 
 export default List;
+
+
