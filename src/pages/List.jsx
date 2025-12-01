@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";  // ⬅️ BẠN QUÊN DÒNG NÀY
+import { useNavigate } from "react-router-dom";
 
 function List() {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const navigate = useNavigate();  // ⬅️ BẠN CŨNG QUÊN TẠO navigate
+  const navigate = useNavigate();
 
   const API_URL = "http://localhost:3001/tours";
 
@@ -80,7 +80,7 @@ function List() {
                 <td className="px-4 py-2 border border-gray-300">{tour.name}</td>
                 <td className="px-4 py-2 border border-gray-300">{tour.destination}</td>
                 <td className="px-4 py-2 border border-gray-300">{tour.duration}</td>
-                <td className="px-4 py-2 border border-gray-300">
+                <td className="px-4 py-2 border border-gray-300 text-red-600" >
                   {tour.price.toLocaleString()} VNĐ
                 </td>
                 <td className="px-4 py-2 border border-gray-300">{tour.available}</td>

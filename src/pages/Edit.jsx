@@ -19,21 +19,18 @@ function Edit() {
 
   const [loading, setLoading] = useState(true);
 
-  // ========= Load dữ liệu tour cần sửa =========
   useEffect(() => {
     axios
       .get(API_URL)
       .then((res) => setForm(res.data))
       .catch(() => alert("Không tải được dữ liệu tour"))
       .finally(() => setLoading(false));
-  }, [id]); // ⬅️ SỬA Ở ĐÂY
+  }, [id]);
 
-  // ========= Cập nhật state khi nhập =========
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ========= Submit cập nhật ==========
   const handleSubmit = (e) => {
     e.preventDefault();
 

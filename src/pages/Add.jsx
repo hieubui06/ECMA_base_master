@@ -15,7 +15,6 @@ function Add() {
   const handleAdd = async (e) => {
     e.preventDefault();
 
-    // kiểm tra tất cả trường bắt buộc
     if (!name || !price || !image || !destination || !duration || !available) {
       toast.error("Vui lòng nhập đầy đủ thông tin");
       return;
@@ -49,7 +48,7 @@ function Add() {
       <h1 className="text-2xl font-bold mb-4 text-center">Thêm Tour Mới</h1>
 
       <form onSubmit={handleAdd} className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-xl shadow-lg max-w-3xl mx-auto">
-        {/* Tên tour */}
+
         <div className="flex flex-col">
           <label className="font-medium mb-1">Tên tour</label>
           <input
@@ -60,7 +59,6 @@ function Add() {
           />
         </div>
 
-        {/* Giá */}
         <div className="flex flex-col">
           <label className="font-medium mb-1">Giá</label>
           <input
@@ -72,7 +70,6 @@ function Add() {
           />
         </div>
 
-        {/* Hình ảnh */}
         <div className="flex flex-col">
           <label className="font-medium mb-1">Hình ảnh</label>
           <input
@@ -83,7 +80,6 @@ function Add() {
           />
         </div>
 
-        {/* Điểm đến */}
         <div className="flex flex-col">
           <label className="font-medium mb-1">Điểm đến</label>
           <input
@@ -94,7 +90,6 @@ function Add() {
           />
         </div>
 
-        {/* Thời gian */}
         <div className="flex flex-col">
           <label className="font-medium mb-1">Thời gian</label>
           <input
@@ -105,7 +100,6 @@ function Add() {
           />
         </div>
 
-        {/* Số lượng */}
         <div className="flex flex-col">
           <label className="font-medium mb-1">Số lượng</label>
           <input
@@ -117,7 +111,6 @@ function Add() {
           />
         </div>
 
-        {/* Button submit, chiếm full width 2 cột */}
         <div className="md:col-span-2">
           <button
             type="submit"
