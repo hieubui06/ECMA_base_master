@@ -4,6 +4,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import List from "./pages/List";
 import Edit from "./pages/Edit";
 import Add from "./pages/Add";
+import LoginPage from "./pages/LoginPage";
+import Register from "./pages/RegisterPage";
 
 function App() {
 
@@ -31,7 +33,6 @@ function App() {
         </div>
       </nav>
 
-      {/* MAIN CONTENT */}
       <div className="max-w-6xl mx-auto mt-10 px-4 text-center">
         <h1 className="text-4xl font-bold mb-4">Chào mừng đến với WEB501</h1>
         <p className="text-lg text-gray-600">Ứng dụng quản lý dữ liệu</p>
@@ -39,6 +40,8 @@ function App() {
           <Route path="/List" element={<List />} />
           <Route path="/edit/:id" element={<Edit />} />
           <Route path="/add" element={<Add />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
 

@@ -91,6 +91,7 @@ function List() {
                   >
                     Sửa
                   </button>
+
                   <button
                     onClick={() => handleDelete(tour.id)}
                     className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow transition"
