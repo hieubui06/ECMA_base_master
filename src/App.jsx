@@ -1,11 +1,11 @@
 import React from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { Routes, Route, Link } from "react-router-dom";
 import List from "./pages/List";
 import Edit from "./pages/Edit";
 import Add from "./pages/Add";
-import LoginPage from "./pages/LoginPage";
-import Register from "./pages/RegisterPage";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
 
 function App() {
 
@@ -41,7 +41,7 @@ function App() {
           <Route path="/edit/:id" element={<Edit />} />
           <Route path="/add" element={<Add />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </div>
 
